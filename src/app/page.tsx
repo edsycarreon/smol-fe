@@ -14,10 +14,13 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
+import { useMutation } from "@tanstack/react-query";
+import fetchRequest from "@/utils/fetch.utils";
+import { RequestType } from "@/enums";
+import { useCallback, useMemo, useState } from "react";
 
 const FormSchema = z.object({
-  link: z.string().url().min(1, { message: "Link is required" }),
+  longUrl: z.string().url().min(1, { message: "Link is required" }),
   customUrl: z
     .string()
     .max(6, { message: "Custom URL must not exceed 6 characters" }),
@@ -26,19 +29,70 @@ const FormSchema = z.object({
 });
 
 export default function HomePage() {
+  const [shortUrl, setShortUrl] = useState<string>("");
+  const [copyButtonText, setCopyButtonText] = useState<string>("Copy");
+
+  const handleCopyClick = useCallback(() => {
+    navigator.clipboard.writeText(shortUrl).then(() => {
+      setCopyButtonText("Copied");
+      setTimeout(() => {
+        setCopyButtonText("Copy");
+      }, 2000);
+    });
+  }, [shortUrl]);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      link: "",
+      longUrl: "",
       customUrl: "",
       password: "",
       expiresIn: "",
     },
   });
 
+  const postFormData = async (formData: z.infer<typeof FormSchema>) => {
+    const response = await fetchRequest("/", RequestType.POST, formData);
+
+    return response.json();
+  };
+
+  const { mutate } = useMutation({
+    mutationFn: postFormData,
+    onSuccess: (response) => {
+      console.log("Data successfully submitted:", response.data.shortUrl);
+      setShortUrl(response.data.shortUrl);
+    },
+    onError: (error) => {
+      console.error("An error occurred:", error);
+    },
+  });
+
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log("Submitted data:", data);
+    mutate(data);
   }
+
+  const renderShortUrl = useMemo(() => {
+    if (shortUrl) {
+      return (
+        <div className="flex justify-center items-center space-x-4">
+          <button
+            className="px-4 py-2 bg-primary text-white rounded-md"
+            onClick={handleCopyClick}
+          >
+            {copyButtonText}
+          </button>
+          <span
+            className="text-zinc-500 font-light underline underline-offset-4 text-xl cursor-pointer hover:text-zinc-300"
+            onClick={handleCopyClick}
+          >
+            {shortUrl}
+          </span>
+        </div>
+      );
+    }
+    return null;
+  }, [shortUrl, copyButtonText, handleCopyClick]);
 
   return (
     <div className="px-4 md:px-6 lg:px-80 py-6 space-y-6">
@@ -54,13 +108,13 @@ export default function HomePage() {
             <div className="space-y-2">
               <FormField
                 control={form.control}
-                name="link"
+                name="longUrl"
                 render={({ field }) => (
                   <FormItem>
                     <div className="">
-                      <FormLabel>Link</FormLabel>
+                      <FormLabel>URL</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter link" {...field} />
+                        <Input placeholder="Enter URL" {...field} />
                       </FormControl>
                       <FormMessage />
                     </div>
@@ -93,7 +147,7 @@ export default function HomePage() {
                   render={({ field }) => (
                     <FormItem>
                       <div className="">
-                        <FormLabel>Link</FormLabel>
+                        <FormLabel>Password (Optional)</FormLabel>
                         <FormControl>
                           <Input
                             type="password"
@@ -114,7 +168,7 @@ export default function HomePage() {
                   render={({ field }) => (
                     <FormItem>
                       <div className="">
-                        <FormLabel>Link</FormLabel>
+                        <FormLabel>Link (Optional)</FormLabel>
                         <FormControl>
                           <Input
                             placeholder="2 minutes/hours/days"
@@ -134,6 +188,7 @@ export default function HomePage() {
           </div>
         </form>
       </Form>
+      {renderShortUrl}
     </div>
   );
 }
