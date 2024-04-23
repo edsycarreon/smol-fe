@@ -1,1 +1,2 @@
-export * from "./request-type.enum";
+export * from "./RequestType.enum";
+export * from "./Error.enum";
