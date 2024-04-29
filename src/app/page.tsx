@@ -16,9 +16,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { ErrorCode, RequestType } from "@/enums";
 import fetchRequest from "@/utils/fetch.utils";
-import { useToast } from "@/components/ui/use-toast";
 
 export default function SignIn() {
   const router = useRouter();

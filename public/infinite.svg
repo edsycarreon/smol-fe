@@ -1,0 +1,65 @@
+<svg version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink" id="snapshot-74172" width="250" height="250"
+  viewBox="0 0 250 250">
+  <desc>This image was made on Patterninja.com</desc>
+  <defs>
+    <!-- image 77538 -->
+    <g id="transformed-77538" data-image="77538"
+      transform="translate(233.7109159638508, -15.399084036149224) rotate(45, 15.39908403614923, 15.399084036149224)">
+      <g>
+        <svg version="1.1" width="30.79816807229846px" height="30.79816807229845px"
+          viewBox="0 0 30.79816807229846 30.79816807229845">
+          <g id="original-77538">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+              preserveAspectRatio="xMidYMid meet">
+              <path
+                d="M2 9.137C2 14 6.02 16.591 8.962 18.911 10 19.729 11 20.5 12 20.5s2-.77 3.038-1.59C17.981 16.592 22 14 22 9.138c0-4.863-5.5-8.312-10-3.636C7.5.825 2 4.274 2 9.137z"
+                fill="rgba(160, 160, 160, 1)" stroke="none" />
+            </svg>
+          </g>
+        </svg>
+      </g>
+    </g>
+    <!-- /image 77538 -->
+
+    <!-- image 95672 -->
+    <g id="transformed-95672" data-image="95672"
+      transform="translate(118.72311942264152, 110.39311942264153) rotate(47, 11.126880577358477, 11.126880577358467)">
+      <g>
+        <svg version="1.1" width="22.253761154716955px" height="22.253761154716933px"
+          viewBox="0 0 22.253761154716955 22.253761154716933">
+          <g id="original-95672">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 64 64"
+              xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet">
+              <path
+                d="M62.79 29.172l-28-28C34.009.391 32.985 0 31.962 0s-2.047.391-2.828 1.172l-28 28c-1.562 1.566-1.484 4.016.078 5.578 1.566 1.57 3.855 1.801 5.422.234L8 33.617V60c0 2.211 1.789 4 4 4h16V48h8v16h16c2.211 0 4-1.789 4-4V33.695l1.195 1.195c1.562 1.562 3.949 1.422 5.516-.141 1.563-1.561 1.645-4.015.079-5.577z"
+                fill="rgba(160, 160, 160, 1)" stroke="none" />
+            </svg>
+          </g>
+        </svg>
+      </g>
+    </g>
+    <!-- /image 95672 -->
+  </defs>
+  <rect x="0" y="0" width="250" height="250" fill="rgba(0, 0, 0, 0)"></rect>
+  <use xlink:href="#transformed-77538" transform="translate(-250, -250)"></use>
+  <use xlink:href="#transformed-77538" transform="translate(0, -250)"></use>
+  <use xlink:href="#transformed-77538" transform="translate(250, -250)"></use>
+  <use xlink:href="#transformed-77538" transform="translate(-250, 0)"></use>
+  <use xlink:href="#transformed-77538" transform="translate(0, 0)"></use>
+  <use xlink:href="#transformed-77538" transform="translate(250, 0)"></use>
+  <use xlink:href="#transformed-77538" transform="translate(-250, 250)"></use>
+  <use xlink:href="#transformed-77538" transform="translate(0, 250)"></use>
+  <use xlink:href="#transformed-77538" transform="translate(250, 250)"></use>
+  <use xlink:href="#transformed-95672" transform="translate(-250, -250)"></use>
+  <use xlink:href="#transformed-95672" transform="translate(0, -250)"></use>
+  <use xlink:href="#transformed-95672" transform="translate(250, -250)"></use>
+  <use xlink:href="#transformed-95672" transform="translate(-250, 0)"></use>
+  <use xlink:href="#transformed-95672" transform="translate(0, 0)"></use>
+  <use xlink:href="#transformed-95672" transform="translate(250, 0)"></use>
+  <use xlink:href="#transformed-95672" transform="translate(-250, 250)"></use>
+  <use xlink:href="#transformed-95672" transform="translate(0, 250)"></use>
+  <use xlink:href="#transformed-95672" transform="translate(250, 250)"></use>
+</svg>
