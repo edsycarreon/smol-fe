@@ -80,6 +80,7 @@ const config = {
         infinite: "url('/infinite.svg')",
         "radial-gradient":
           "radial-gradient(circle, rgba(255,255,255,0) 0%, hsl(var(--background)) 100%)",
+        dots: "url('/dot.svg')",
       },
     },
   },
