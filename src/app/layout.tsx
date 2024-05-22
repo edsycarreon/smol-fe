@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-dots bg-opacity-20`}>
         <Providers>{children}</Providers>
         <Toaster />
       </body>
