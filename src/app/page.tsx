@@ -82,7 +82,7 @@ export default function SignIn() {
 
   return (
     <>
-      <div className="px-4 md:px-6 lg:px-96 pt-32 pb-6 space-y-6">
+      <div className="px-4 md:px-6 lg:px-[38rem] pt-32 pb-6 space-y-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-4">
