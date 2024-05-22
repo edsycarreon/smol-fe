@@ -75,18 +75,18 @@ export default function HomePage() {
     if (shortUrl) {
       return (
         <div className="flex justify-center items-center space-x-4">
-          <button
-            className="px-4 py-2 bg-primary text-white rounded-md"
-            onClick={handleCopyClick}
-          >
-            {copyButtonText}
-          </button>
           <span
             className="text-zinc-500 font-light underline underline-offset-4 text-xl cursor-pointer hover:text-zinc-300"
             onClick={handleCopyClick}
           >
             {shortUrl}
           </span>
+          <button
+            className="px-4 py-2 bg-primary text-white rounded-md"
+            onClick={handleCopyClick}
+          >
+            {copyButtonText}
+          </button>
         </div>
       );
     }
@@ -94,9 +94,9 @@ export default function HomePage() {
   }, [shortUrl, copyButtonText, handleCopyClick]);
 
   return (
-    <div className="px-4 md:px-6 lg:px-80 py-6 space-y-6">
+    <div className="px-4 md:px-6 lg:px-80 py-48 space-y-6">
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold">URL Shortener</h1>
+        <h1 className="font-bold text-9xl">Smol</h1>
         <p className="text-gray-500 dark:text-gray-400">
           Enter your URL to shorten it
         </p>
@@ -104,12 +104,12 @@ export default function HomePage() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-4">
-            <div className="space-y-2">
+            <div className="flex space-x-4">
               <FormField
                 control={form.control}
                 name="longUrl"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                     <div>
                       <FormLabel>URL</FormLabel>
                       <FormControl>
@@ -120,6 +120,9 @@ export default function HomePage() {
                   </FormItem>
                 )}
               />
+              <Button type="submit" className="mt-6">
+                Shorten
+              </Button>
             </div>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
@@ -181,9 +184,6 @@ export default function HomePage() {
                 />
               </div>
             </div>
-            <Button className="w-full" type="submit">
-              Shorten
-            </Button>
           </div>
         </form>
       </Form>

@@ -24,8 +24,7 @@ async function fetchRequest(
     },
   };
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoyLCJlbWFpbCI6ImV1cmlrYW5hdmFycm8xQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEtQbEptUkIwQ1FMSE8wdW9xa2JPVmUxLlRBSjdybE1ueVcuSGhqcmpUcFh6d0tmUnlKRVkyIn0sImlhdCI6MTcxMzU4ODAzNywiZXhwIjoxNzEzNTkxNjM3fQ.sQy7Ha8OFg8HZ_N6ycWRkw8PXmQWDlakvE90eIQxOUo";
+  const token = localStorage.getItem("token");
 
   if (token) {
     if (!config.headers) {
@@ -48,7 +47,6 @@ async function fetchRequest(
     const response = await fetch(url, config);
     return response;
   } catch (error) {
-    console.error("Fetch error:", error);
     throw error;
   }
 }
