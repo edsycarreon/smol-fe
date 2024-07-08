@@ -104,6 +104,12 @@ function SignUp() {
   return (
     <>
       <div className="px-4 md:px-6 lg:px-96 pt-32 pb-6 space-y-6">
+        <div className="space-y-2 text-center">
+          <h1 className="font-bold text-9xl">Smol</h1>
+          <p className="text-gray-500 dark:text-gray-400">
+            Sign up to shorten your URLs
+          </p>
+        </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-4">
@@ -212,6 +218,18 @@ function SignUp() {
             </div>
           </form>
         </Form>
+        <section>
+          <p className="text-center text-gray-500 dark:text-gray-400">
+            Already have an account?{" "}
+            <a
+              className="text-blue-500 dark:text-blue-400 cursor-pointer hover:underline"
+              onClick={() => router.push("/")}
+              aria-label="Sign in"
+            >
+              Sign in
+            </a>
+          </p>
+        </section>
       </div>
     </>
   );
