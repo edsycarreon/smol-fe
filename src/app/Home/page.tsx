@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input";
 import { RequestType } from "@/enums";
 import fetchRequest from "@/utils/fetch.utils";
 
+import LinkTable from "./components/data-table/page";
+
 const FormSchema = z.object({
   longUrl: z.string().url().min(1, { message: "Link is required" }),
   customUrl: z
@@ -94,100 +96,103 @@ export default function HomePage() {
   }, [shortUrl, copyButtonText, handleCopyClick]);
 
   return (
-    <div className="px-4 md:px-6 lg:px-80 py-48 space-y-6">
-      <div className="space-y-2 text-center">
-        <h1 className="font-bold text-9xl">Smol</h1>
-        <p className="text-gray-500 dark:text-gray-400">
-          Enter your URL to shorten it
-        </p>
+    <div>
+      <div className="px-4 md:px-6 lg:px-80 pt-48 pb-20 space-y-6">
+        <div className="space-y-2 text-center">
+          <h1 className="font-bold text-9xl">Smol</h1>
+          <p className="text-gray-500 dark:text-gray-400">
+            Enter your URL to shorten it
+          </p>
+        </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="space-y-4">
+              <div className="flex space-x-4">
+                <FormField
+                  control={form.control}
+                  name="longUrl"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <div>
+                        <FormLabel>URL</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter URL" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </div>
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="mt-6">
+                  Shorten
+                </Button>
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <FormField
+                    control={form.control}
+                    name="customUrl"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div>
+                          <FormLabel>Custom URL (Optional)</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter custom URL" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div>
+                          <FormLabel>Password (Optional)</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="password"
+                              placeholder="Enter password"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <FormField
+                    control={form.control}
+                    name="expiresIn"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div>
+                          <FormLabel>Link (Optional)</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="2 minutes/hours/days"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+        </Form>
+        {renderShortUrl}
       </div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="space-y-4">
-            <div className="flex space-x-4">
-              <FormField
-                control={form.control}
-                name="longUrl"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <div>
-                      <FormLabel>URL</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter URL" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </div>
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="mt-6">
-                Shorten
-              </Button>
-            </div>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
-                <FormField
-                  control={form.control}
-                  name="customUrl"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div>
-                        <FormLabel>Custom URL (Optional)</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter custom URL" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </div>
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="space-y-2">
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div>
-                        <FormLabel>Password (Optional)</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="password"
-                            placeholder="Enter password"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </div>
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="space-y-2">
-                <FormField
-                  control={form.control}
-                  name="expiresIn"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div>
-                        <FormLabel>Link (Optional)</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="2 minutes/hours/days"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </div>
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
-          </div>
-        </form>
-      </Form>
-      {renderShortUrl}
+      <LinkTable />
     </div>
   );
 }
