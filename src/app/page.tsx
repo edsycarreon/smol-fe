@@ -83,6 +83,12 @@ export default function SignIn() {
   return (
     <>
       <div className="px-4 md:px-6 lg:px-[38rem] pt-32 pb-6 space-y-6">
+        <header className="space-y-2 text-center">
+          <h1 className="font-bold text-9xl">Smol</h1>
+          <p className="text-gray-500 dark:text-gray-400">
+            Sign in to shorten your URLs
+          </p>
+        </header>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-4">
@@ -132,6 +138,18 @@ export default function SignIn() {
             </div>
           </form>
         </Form>
+        <section>
+          <p className="text-center text-gray-500 dark:text-gray-400">
+            Don&apos;t have an account?{" "}
+            <a
+              className="text-blue-500 dark:text-blue-400 cursor-pointer hover:underline"
+              onClick={() => router.push("/signup")}
+              aria-label="Sign up"
+            >
+              Sign up
+            </a>
+          </p>
+        </section>
       </div>
     </>
   );
