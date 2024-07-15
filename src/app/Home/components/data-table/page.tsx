@@ -1,9 +1,12 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+
+import { useToast } from "../../../../components/ui/use-toast";
 
 import { Link, getColumns } from "./columns";
 import { DataTable } from "./data-table";
 
 export default function LinkTable() {
+  const { toast } = useToast();
   const [data, setData] = useState<Link[]>([
     {
       id: 1,
@@ -23,13 +26,16 @@ export default function LinkTable() {
     },
   ]);
 
-  //TODO implement handleDeleteClick and handleShowQRCode
-  function handleDeleteClick(id: number) {}
-  function handleShowQRCode(shortUrl: string) {}
+  const handleDeleteClick = useCallback(
+    (id: number) => {
+      toast({ variant: "default", title: "Link copied", duration: 2000 });
+    },
+    [toast]
+  );
 
   const columns = useMemo(
-    () => getColumns({ handleDeleteClick, handleShowQRCode }),
-    [handleDeleteClick, handleShowQRCode]
+    () => getColumns({ handleDeleteClick }),
+    [handleDeleteClick]
   );
 
   return (
