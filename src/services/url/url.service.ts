@@ -19,8 +19,21 @@ export async function createShortUrl(
 }
 
 export async function deleteShortUrl(shortUrl: string): Promise<Response> {
-  const response = await fetchRequest(`/${shortUrl}`, {
+  const response = await fetchRequest(`/links/${shortUrl}`, {
     method: RequestType.DELETE,
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.code);
+  }
+
+  return response;
+}
+
+export async function getAllUserUrls(): Promise<Response> {
+  const response = await fetchRequest("/links/get", {
+    method: RequestType.GET,
   });
 
   if (!response.ok) {
