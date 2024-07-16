@@ -10,16 +10,14 @@ import { Link } from "../../../../types";
 import ActionDropDown from "./action-dropdown";
 
 type ColumnsProps = {
-  handleDeleteClick: (id: number) => void;
+  handleDeleteClick: (id: string) => void;
 };
 
 function handleCopyClick(shortUrl: string) {
   navigator.clipboard.writeText(shortUrl);
 }
 
-export const getColumns = ({
-  handleDeleteClick,
-}: ColumnsProps): ColumnDef<Link>[] => [
+export const getColumns = (): ColumnDef<Link>[] => [
   {
     accessorKey: "originalUrl",
     header: "Original URL",
@@ -82,7 +80,7 @@ export const getColumns = ({
 
       return (
         <div className="flex justify-end">
-          <ActionDropDown link={link} handleDeleteClick={handleDeleteClick} />
+          <ActionDropDown link={link} />
         </div>
       );
     },
