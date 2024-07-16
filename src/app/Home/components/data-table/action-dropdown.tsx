@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import { MoreHorizontal } from "lucide-react";
 import QRCode from "react-qr-code";
 
@@ -16,15 +17,40 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "../../../../components/ui/dropdown-menu";
+import { useToast } from "../../../../components/ui/use-toast";
+import { deleteShortUrl } from "../../../../services/url/url.service";
 import { Link } from "../../../../types";
 
 type ActionDropdownProps = {
   link: Link;
-  handleDeleteClick: (id: number) => void;
 };
 
 function ActionDropDown(props: ActionDropdownProps) {
-  const { link, handleDeleteClick } = props;
+  const { link } = props;
+  const { toast } = useToast();
+
+  async function handleDeleteUrl(shortUrl: string) {
+    const response = await deleteShortUrl(shortUrl);
+    return response.json();
+  }
+
+  const { mutate } = useMutation({
+    mutationFn: handleDeleteUrl,
+    onSuccess: (response) => {
+      toast({
+        variant: "success",
+        title: "Link deleted successfully",
+        duration: 2000,
+      });
+    },
+    onError: (error) => {
+      throw error;
+    },
+  });
+
+  function handleDeleteButton(shortUrl: string) {
+    mutate(shortUrl);
+  }
   return (
     <Dialog>
       <DropdownMenu>
@@ -50,7 +76,7 @@ function ActionDropDown(props: ActionDropdownProps) {
             <DropdownMenuItem>View QR Code</DropdownMenuItem>
           </DialogTrigger>
           <DropdownMenuItem
-            onClick={() => handleDeleteClick(link.id)}
+            onClick={() => handleDeleteButton(link.shortUrl)}
             className="text-red-500"
           >
             Delete
