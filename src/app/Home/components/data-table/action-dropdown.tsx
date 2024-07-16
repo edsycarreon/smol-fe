@@ -44,7 +44,11 @@ function ActionDropDown(props: ActionDropdownProps) {
       });
     },
     onError: (error) => {
-      throw error;
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong. Please try again.",
+        duration: 2000,
+      });
     },
   });
 
