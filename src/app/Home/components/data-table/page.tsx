@@ -1,13 +1,11 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
-import { useToast } from "../../../../components/ui/use-toast";
 import { Link } from "../../../../types";
 
 import { getColumns } from "./columns";
 import { DataTable } from "./data-table";
 
 export default function URLTable() {
-  const { toast } = useToast();
   const [data, setData] = useState<Link[]>([
     {
       id: 1,
@@ -27,17 +25,7 @@ export default function URLTable() {
     },
   ]);
 
-  const handleDeleteClick = useCallback(
-    (id: number) => {
-      toast({ variant: "default", title: "Link copied", duration: 2000 });
-    },
-    [toast]
-  );
-
-  const columns = useMemo(
-    () => getColumns({ handleDeleteClick }),
-    [handleDeleteClick]
-  );
+  const columns = useMemo(() => getColumns(), []);
 
   return (
     <div className="container mx-auto py-10">
