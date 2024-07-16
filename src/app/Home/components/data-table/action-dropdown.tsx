@@ -16,8 +16,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "../../../../components/ui/dropdown-menu";
-
-import { Link } from "./columns";
+import { Link } from "../../../../types";
 
 type ActionDropdownProps = {
   link: Link;
