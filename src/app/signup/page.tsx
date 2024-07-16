@@ -56,11 +56,10 @@ function SignUp() {
   });
 
   const postFormData = async (formData: z.infer<typeof FormSchema>) => {
-    const response = await fetchRequest(
-      "/auth/signup",
-      RequestType.POST,
-      formData
-    );
+    const response = await fetchRequest("/auth/signup", {
+      method: RequestType.POST,
+      data: formData,
+    });
 
     if (!response.ok) {
       const errorData = await response.json();
