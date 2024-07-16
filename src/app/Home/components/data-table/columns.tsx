@@ -5,6 +5,7 @@ import { Copy } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
+import { config } from "../../../../config";
 import { Link } from "../../../../types";
 
 import ActionDropDown from "./action-dropdown";
@@ -16,6 +17,7 @@ type ColumnsProps = {
 function handleCopyClick(shortUrl: string) {
   navigator.clipboard.writeText(shortUrl);
 }
+const baseUrl = config.api.baseUrl;
 
 export const getColumns = (): ColumnDef<Link>[] => [
   {
@@ -50,9 +52,14 @@ export const getColumns = (): ColumnDef<Link>[] => [
   {
     accessorKey: "expiresIn",
     header: "Expires In",
+    cell: ({ row }) => {
+      const expiresIn: string = row.getValue("expiresIn");
+      if (!expiresIn) return "Never";
+      return expiresIn;
+    },
   },
   {
-    accessorKey: "views",
+    accessorKey: "visitCount",
     header: "Views",
   },
   {
@@ -63,10 +70,10 @@ export const getColumns = (): ColumnDef<Link>[] => [
       return (
         <div
           className="flex items-center"
-          onClick={() => handleCopyClick(shortUrl)}
+          onClick={() => handleCopyClick(`${baseUrl}/${shortUrl}`)}
         >
           <Copy className="h-6 w-6 mr-2 p-1 cursor-pointer text-black hover:bg-slate-200 rounded-md" />
-          <p className="text-blue-500 dark:text-blue-400 ">{shortUrl}</p>
+          <p className="text-blue-500 dark:text-blue-400 ">{`${baseUrl}/${shortUrl}`}</p>
         </div>
       );
     },
