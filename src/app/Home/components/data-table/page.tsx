@@ -1,11 +1,12 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { useToast } from "../../../../components/ui/use-toast";
+import { Link } from "../../../../types";
 
-import { Link, getColumns } from "./columns";
+import { getColumns } from "./columns";
 import { DataTable } from "./data-table";
 
-export default function LinkTable() {
+export default function URLTable() {
   const { toast } = useToast();
   const [data, setData] = useState<Link[]>([
     {
