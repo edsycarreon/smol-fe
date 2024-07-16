@@ -1,36 +1,13 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Copy, MoreHorizontal } from "lucide-react";
-import QRCode from "react-qr-code";
+import { Copy } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../../../../components/ui/dialog";
+import { Link } from "../../../../types";
 
 import ActionDropDown from "./action-dropdown";
-
-export type Link = {
-  id: number;
-  originalUrl: string;
-  createdAt: string;
-  shortUrl: string;
-  expiresIn: string;
-  views: number;
-};
 
 type ColumnsProps = {
   handleDeleteClick: (id: number) => void;
