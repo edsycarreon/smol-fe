@@ -1,6 +1,8 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { Copy } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -9,15 +11,13 @@ import { config } from "../../../../config";
 import { Link } from "../../../../types";
 
 import ActionDropDown from "./action-dropdown";
-
-type ColumnsProps = {
-  handleDeleteClick: (id: string) => void;
-};
+import DateDisplay from "./date-display";
 
 function handleCopyClick(shortUrl: string) {
   navigator.clipboard.writeText(shortUrl);
 }
 const baseUrl = config.api.baseUrl;
+dayjs.extend(relativeTime);
 
 export const getColumns = (): ColumnDef<Link>[] => [
   {
@@ -48,14 +48,35 @@ export const getColumns = (): ColumnDef<Link>[] => [
         </Button>
       );
     },
+    cell: ({ row }) => {
+      const createdAt: string = row.getValue("createdAt");
+      const relativeDate = dayjs(createdAt).fromNow();
+      const formattedDate = dayjs(createdAt).format("MMM D, YYYY h:mm A");
+      return (
+        <DateDisplay
+          relativeDate={relativeDate}
+          formattedDate={formattedDate}
+        />
+      );
+    },
   },
   {
     accessorKey: "expiresIn",
     header: "Expires In",
     cell: ({ row }) => {
       const expiresIn: string = row.getValue("expiresIn");
+      const futureDate = dayjs(expiresIn);
+      const relativeDate = futureDate.isAfter(dayjs())
+        ? futureDate.fromNow()
+        : "Expired";
+      const formattedDate = dayjs(expiresIn).format("MMM D, YYYY h:mm A");
       if (!expiresIn) return "Never";
-      return expiresIn;
+      return (
+        <DateDisplay
+          relativeDate={relativeDate}
+          formattedDate={formattedDate}
+        />
+      );
     },
   },
   {
