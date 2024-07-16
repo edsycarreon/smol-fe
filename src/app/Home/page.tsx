@@ -16,10 +16,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RequestType } from "@/enums";
-import fetchRequest from "@/utils/fetch.utils";
 
-import LinkTable from "./components/data-table/page";
+import { createShortUrl } from "../../services/url/url.service";
+
+import URLTable from "./components/data-table/page";
 
 const FormSchema = z.object({
   longUrl: z.string().url().min(1, { message: "Link is required" }),
@@ -54,7 +54,7 @@ export default function HomePage() {
   });
 
   const postFormData = async (formData: z.infer<typeof FormSchema>) => {
-    const response = await fetchRequest("/", RequestType.POST, formData);
+    const response = await createShortUrl({ ...formData });
 
     return response.json();
   };
@@ -192,7 +192,7 @@ export default function HomePage() {
         </Form>
         {renderShortUrl}
       </div>
-      <LinkTable />
+      <URLTable />
     </div>
   );
 }
