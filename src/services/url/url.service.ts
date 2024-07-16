@@ -17,3 +17,16 @@ export async function createShortUrl(
 
   return response;
 }
+
+export async function deleteShortUrl(shortUrl: string): Promise<Response> {
+  const response = await fetchRequest(`/${shortUrl}`, {
+    method: RequestType.DELETE,
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.code);
+  }
+
+  return response;
+}
