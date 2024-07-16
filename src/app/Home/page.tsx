@@ -173,7 +173,7 @@ export default function HomePage() {
                     render={({ field }) => (
                       <FormItem>
                         <div>
-                          <FormLabel>Link (Optional)</FormLabel>
+                          <FormLabel>Expiry (Optional)</FormLabel>
                           <FormControl>
                             <Input
                               placeholder="2 minutes/hours/days"
