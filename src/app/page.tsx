@@ -17,8 +17,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { ErrorCode, RequestType } from "@/enums";
-import fetchRequest from "@/utils/fetch.utils";
+import { ErrorCode } from "@/enums";
+
+import { login } from "../services/auth/login.service";
 
 export default function SignIn() {
   const router = useRouter();
@@ -40,23 +41,16 @@ export default function SignIn() {
   });
 
   const postFormData = async (formData: z.infer<typeof FormSchema>) => {
-    const response = await fetchRequest(
-      "/auth/signin",
-      RequestType.POST,
-      formData
-    );
+    const { email, password } = formData;
+    const response = await login(email, password);
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.code);
-    }
     return response.json();
   };
 
   const { mutate } = useMutation({
     mutationFn: postFormData,
     onSuccess: (response) => {
-      localStorage.setItem("token", response.data);
+      localStorage.setItem("token", response.data); //TODO make this more secure
       router.push("/home");
     },
     onError: (error) => {
@@ -132,7 +126,11 @@ export default function SignIn() {
                   />
                 </div>
               </div>
-              <Button className="w-full" type="submit">
+              <Button
+                className="w-full"
+                type="submit"
+                onSubmit={(e) => e.preventDefault()}
+              >
                 Login
               </Button>
             </div>
