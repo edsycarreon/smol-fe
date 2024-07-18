@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { ErrorCode } from "@/enums";
 
-import { login } from "../services/auth/login.service";
+import { signIn } from "../services/auth/auth.service";
 
 export default function SignIn() {
   const router = useRouter();
@@ -42,7 +42,7 @@ export default function SignIn() {
 
   const postFormData = async (formData: z.infer<typeof FormSchema>) => {
     const { email, password } = formData;
-    const response = await login(email, password);
+    const response = await signIn(email, password);
 
     return response.json();
   };
