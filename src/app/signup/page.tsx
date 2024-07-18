@@ -17,7 +17,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { ErrorCode, ErrorMessage, RequestType } from "@/enums";
-import fetchRequest from "@/utils/fetch.utils";
+
+import { signUp } from "../../services/auth/auth.service";
 
 function SignUp() {
   const router = useRouter();
@@ -56,15 +57,14 @@ function SignUp() {
   });
 
   const postFormData = async (formData: z.infer<typeof FormSchema>) => {
-    const response = await fetchRequest("/auth/signup", {
-      method: RequestType.POST,
-      data: formData,
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.code);
-    }
+    const { firstName, lastName, email, password, confirmPassword } = formData;
+    const response = await signUp(
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword
+    );
     return response.json();
   };
 
