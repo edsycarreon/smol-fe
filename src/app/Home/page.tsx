@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import { Label } from "../../components/ui/label";
+import { Switch } from "../../components/ui/switch";
 import { createShortUrl } from "../../services/url/url.service";
 
 import URLTable from "./components/data-table/page";
@@ -33,6 +35,7 @@ const FormSchema = z.object({
 export default function HomePage() {
   const [shortUrl, setShortUrl] = useState<string>("");
   const [copyButtonText, setCopyButtonText] = useState<string>("Copy");
+  const [isAdvancedSettings, setIsAdvancedSettings] = useState<boolean>(false);
 
   const handleCopyClick = useCallback(() => {
     navigator.clipboard.writeText(shortUrl).then(() => {
@@ -127,66 +130,79 @@ export default function HomePage() {
                   Shorten
                 </Button>
               </div>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <FormField
-                    control={form.control}
-                    name="customUrl"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div>
-                          <FormLabel>Custom URL (Optional)</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter custom URL" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <FormField
-                    control={form.control}
-                    name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div>
-                          <FormLabel>Password (Optional)</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="password"
-                              placeholder="Enter password"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <FormField
-                    control={form.control}
-                    name="expiresIn"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div>
-                          <FormLabel>Expiry (Optional)</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="2 minutes/hours/days"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                </div>
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="advanced-settings"
+                  checked={isAdvancedSettings}
+                  onCheckedChange={setIsAdvancedSettings}
+                />
+                <Label htmlFor="advanced-settings">Advanced Settings</Label>
               </div>
+              {isAdvancedSettings && (
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <FormField
+                      control={form.control}
+                      name="customUrl"
+                      render={({ field }) => (
+                        <FormItem>
+                          <div>
+                            <FormLabel>Custom URL (Optional)</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Enter custom URL"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <FormField
+                      control={form.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <div>
+                            <FormLabel>Password (Optional)</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="password"
+                                placeholder="Enter password"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <FormField
+                      control={form.control}
+                      name="expiresIn"
+                      render={({ field }) => (
+                        <FormItem>
+                          <div>
+                            <FormLabel>Expiry (Optional)</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="2 minutes/hours/days"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </form>
         </Form>
