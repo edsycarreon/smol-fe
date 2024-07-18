@@ -2,12 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import {
-  permanentRedirect,
-  redirect,
-  usePathname,
-  useRouter,
-} from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -22,8 +17,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { ErrorCode, RequestType } from "@/enums";
-import fetchRequest from "@/utils/fetch.utils";
+import { ErrorCode } from "@/enums";
+
+import { accessProtectedUrl } from "../../../services/url/url.service";
 
 export default function PasswordProtected() {
   const router = useRouter();
@@ -45,16 +41,8 @@ export default function PasswordProtected() {
 
   const postFormData = async (formData: z.infer<typeof FormSchema>) => {
     const payload = { ...formData, shortUrl: url };
-    const response = await fetchRequest(
-      "/protected",
-      RequestType.POST,
-      payload
-    );
+    const response = await accessProtectedUrl(payload);
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.code);
-    }
     return response.json();
   };
 

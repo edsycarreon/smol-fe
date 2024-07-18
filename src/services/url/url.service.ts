@@ -44,7 +44,7 @@ export async function getAllUserUrls(): Promise<Response> {
   return response;
 }
 
-export async function getProtectedUrl({
+export async function accessProtectedUrl({
   password,
   shortUrl,
 }: {
