@@ -43,3 +43,23 @@ export async function getAllUserUrls(): Promise<Response> {
 
   return response;
 }
+
+export async function getProtectedUrl({
+  password,
+  shortUrl,
+}: {
+  password: string;
+  shortUrl: string;
+}): Promise<Response> {
+  const response = await fetchRequest("/protected", {
+    method: RequestType.POST,
+    data: { password, shortUrl },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.code);
+  }
+
+  return response;
+}
